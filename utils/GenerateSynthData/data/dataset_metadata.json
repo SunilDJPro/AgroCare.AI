@@ -1,0 +1,36 @@
+{
+  "total_requested": 10000,
+  "per_class_target": 3333,
+  "csv_files_used": [],
+  "generation_stats": {
+    "Normal": {
+      "base_generated": 1111,
+      "augmented_total": 3333
+    },
+    "Watering Required": {
+      "base_generated": 1111,
+      "augmented_total": 3333
+    },
+    "Risky": {
+      "base_generated": 1111,
+      "augmented_total": 3333
+    }
+  },
+  "csv_counts": {
+    "0": 0,
+    "1": 0,
+    "2": 0
+  },
+  "csv_reference_counts": {
+    "0": 0,
+    "1": 0,
+    "2": 0
+  },
+  "validation_corrections": 711,
+  "final_total": 9999,
+  "final_distribution": {
+    "Normal": 3327,
+    "Watering Required": 2633,
+    "Risky": 4039
+  }
+}
