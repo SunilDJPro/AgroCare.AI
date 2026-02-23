@@ -138,18 +138,22 @@ def train_logreg_baseline(
 def predict_snapshot(
     pipeline: Pipeline,
     sensor_values: List[float],
-    norm_means: np.ndarray,
-    norm_stds: np.ndarray,
+    noise_std: float = 0.0,
 ) -> Dict[str, float]:
     """Predict class probabilities for a single 5-value snapshot.
 
-    The snapshot is repeated to match the expected (60, 5) window shape
-    before feature extraction and prediction.
+    Uses raw sensor values (no dataset normalization) to match the baseline
+    training distribution. Optional noise can be added to better mimic
+    real windows.
     """
 
     window = np.array(sensor_values, dtype=np.float32)[None, None, :]
     window = np.repeat(window, 60, axis=1)
-    window = (window - norm_means) / norm_stds
+
+    if noise_std > 0:
+        rng = np.random.default_rng(0)
+        window = window + rng.normal(0, noise_std, size=window.shape)
+
     features, _ = build_stat_features(window)
     probs = pipeline.predict_proba(features)[0]
     class_idx = int(np.argmax(probs))
